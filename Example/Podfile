@@ -1,0 +1,6 @@
+use_frameworks!
+
+pod 'ContactsChangeNotifier', :path => '..'
+
+target 'ContactsChangeNotifierDemo' do
+end

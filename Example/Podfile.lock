@@ -1,0 +1,16 @@
+PODS:
+  - ContactsChangeNotifier (1.0.0)
+
+DEPENDENCIES:
+  - ContactsChangeNotifier (from `..`)
+
+EXTERNAL SOURCES:
+  ContactsChangeNotifier:
+    :path: ".."
+
+SPEC CHECKSUMS:
+  ContactsChangeNotifier: 6d964a0c0d7fd6e3ab1cbebe6b377992ab9c90f8
+
+PODFILE CHECKSUM: 89d9922cd085c6627f0b97351a2d38a392cdae60
+
+COCOAPODS: 1.11.3
