@@ -138,8 +138,12 @@ open class ContactsChangeNotifier: NSObject {
         //   .background => called from background refresh => external change
         //   .inactive => called when app opened => external change
         //   .active => regular app execution => internal change
-        guard UIApplication.shared.applicationState != .active else { return }
-        guard notification.contactsStoreChangeExternal else { return }
+        guard UIApplication.shared.applicationState != .active,
+              notification.contactsStoreChangeExternal
+        else {
+            lastHistoryToken = store.currentHistoryToken
+            return
+        }
 
         // if there are new external changes, post them in a didChangeNotification
         do {

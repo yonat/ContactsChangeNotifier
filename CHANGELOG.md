@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Fixed
 - ensure UIApplication.applicationState is used from the main thread.
+- skip internal changes when later getting external changes.
 
 ## [1.0.0] - 2022-07-14
 

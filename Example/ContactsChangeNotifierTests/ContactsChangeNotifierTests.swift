@@ -44,7 +44,7 @@ class ContactsChangeNotifierTests: XCTestCase {
         try await Task.sleep(nanoseconds: .second / 4)
 
         let changes = try notifier.changeHistory()
-        XCTAssertEqual(changes.allObjects.count, 1, "internal change saved, but ignored by notifier")
+        XCTAssertEqual(changes.allObjects.count, 0, "internal change saved, and skipped by notifier")
     }
 }
 
