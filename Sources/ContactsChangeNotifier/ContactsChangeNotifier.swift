@@ -112,6 +112,7 @@ open class ContactsChangeNotifier: NSObject {
     // MARK: - Privates
 
     private let lastHistoryTokenUserDefaultsKey = "ContactsChangeNotifier.lastHistoryToken"
+    private var observation: NSObjectProtocol?
 
     private func setupContactStore() async throws {
         try await store.requestAccess(for: .contacts)
@@ -124,15 +125,15 @@ open class ContactsChangeNotifier: NSObject {
             lastHistoryToken = store.currentHistoryToken
         }
 
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(contactsStoreChanged),
-            name: .CNContactStoreDidChange,
-            object: nil
+        observation = NotificationCenter.default.addObserver(
+            forName: .CNContactStoreDidChange,
+            object: nil,
+            queue: .main,
+            using: self.contactsStoreChanged
         )
     }
 
-    @objc private func contactsStoreChanged(notification: Notification) throws {
+    @objc private func contactsStoreChanged(notification: Notification) {
         // avoid phantom echoes of internal changes by checking `applicationState`:
         //   .background => called from background refresh => external change
         //   .inactive => called when app opened => external change
@@ -141,14 +142,20 @@ open class ContactsChangeNotifier: NSObject {
         guard notification.contactsStoreChangeExternal else { return }
 
         // if there are new external changes, post them in a didChangeNotification
-        let changes = try changeHistory()
-        let changeHistoryEvents = changes.compactMap { $0 as? CNChangeHistoryEvent }
-        guard !changeHistoryEvents.isEmpty else { return }
-        NotificationCenter.default.post(
-            name: Self.didChangeNotification,
-            object: self,
-            userInfo: [Notification.contactsChangeEventsKey: changeHistoryEvents]
-        )
+        do {
+            let changes = try changeHistory()
+            let changeHistoryEvents = changes.compactMap { $0 as? CNChangeHistoryEvent }
+            guard !changeHistoryEvents.isEmpty else { return }
+            NotificationCenter.default.post(
+                name: Self.didChangeNotification,
+                object: self,
+                userInfo: [Notification.contactsChangeEventsKey: changeHistoryEvents]
+            )
+        } catch {
+            #if DEBUG
+            print("ContactsChangeNotifier failed to get Contacts change history:", error.localizedDescription)
+            #endif
+        }
     }
 }
 
