@@ -32,6 +32,7 @@ It’s the API that time forgot. 🧟‍♂️
 1. Get the user's Contacts access permission (see [docs](https://developer.apple.com/documentation/contacts/requesting_authorization_to_access_contacts)).
 2. Keep a `ContactsChangeNotifier` instance.
 3. Observe `ContactsChangeNotifier.didChangeNotification` notification.
+4. See change events in the notification's `contactsChangeEvents`.
 
 ```swift
 // 2. Keep a ContactsChangeNotifier instance.
@@ -46,6 +47,7 @@ let observation = NotificationCenter.default.addObserver(
     object: nil,
     queue: nil
 ) { notification in
+    // 4. See change events in the notification's `contactsChangeEvents`.
     for event in notification.contactsChangeEvents ?? [] {
         switch event {
         case let addEvent as CNChangeHistoryAddContactEvent:
