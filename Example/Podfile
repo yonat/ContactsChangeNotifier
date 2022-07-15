@@ -2,5 +2,5 @@ use_frameworks!
 
 pod 'ContactsChangeNotifier', :path => '..'
 
-target 'ContactsChangeNotifierDemo' do
-end
+target 'ContactsChangeNotifierDemo'
+target 'ContactsChangeNotifierTests'

@@ -13,11 +13,26 @@
 		DCC676E328800019007156EA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCC676E228800019007156EA /* ContentView.swift */; };
 		DCC676E52880001C007156EA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DCC676E42880001C007156EA /* Assets.xcassets */; };
 		DCC676E82880001C007156EA /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DCC676E72880001C007156EA /* Preview Assets.xcassets */; };
+		DCF938DF288136FB006D855C /* ContactsChangeNotifierTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCF938DE288136FB006D855C /* ContactsChangeNotifierTests.swift */; };
+		FBC12872363B7832D9714C44 /* Pods_ContactsChangeNotifierTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B3F14A452C43A1CE3D0FB90 /* Pods_ContactsChangeNotifierTests.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		DCF938E0288136FB006D855C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DCC676D528800019007156EA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DCC676DC28800019007156EA;
+			remoteInfo = ContactsChangeNotifierDemo;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		015B6DD0A0F8B23420F7F860 /* Pods_ContactsChangeNotifierDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ContactsChangeNotifierDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3E5E29F603D6F987FCD6B29C /* Pods-ContactsChangeNotifierTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ContactsChangeNotifierTests.release.xcconfig"; path = "Target Support Files/Pods-ContactsChangeNotifierTests/Pods-ContactsChangeNotifierTests.release.xcconfig"; sourceTree = "<group>"; };
 		4E95F5D17DA305F21E07813B /* Pods-ContactsChangeNotifierDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ContactsChangeNotifierDemo.debug.xcconfig"; path = "Target Support Files/Pods-ContactsChangeNotifierDemo/Pods-ContactsChangeNotifierDemo.debug.xcconfig"; sourceTree = "<group>"; };
+		6B3F14A452C43A1CE3D0FB90 /* Pods_ContactsChangeNotifierTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ContactsChangeNotifierTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		758511CED2F346FF2D97EDAC /* Pods-ContactsChangeNotifierTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ContactsChangeNotifierTests.debug.xcconfig"; path = "Target Support Files/Pods-ContactsChangeNotifierTests/Pods-ContactsChangeNotifierTests.debug.xcconfig"; sourceTree = "<group>"; };
 		C832BAF0520B3CF98E12A9D4 /* Pods-ContactsChangeNotifierDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ContactsChangeNotifierDemo.release.xcconfig"; path = "Target Support Files/Pods-ContactsChangeNotifierDemo/Pods-ContactsChangeNotifierDemo.release.xcconfig"; sourceTree = "<group>"; };
 		DC35A32B28801D6E0056FBFD /* Contacts+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Contacts+Extensions.swift"; sourceTree = "<group>"; };
 		DCC676DD28800019007156EA /* ContactsChangeNotifierDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ContactsChangeNotifierDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -25,6 +40,8 @@
 		DCC676E228800019007156EA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		DCC676E42880001C007156EA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DCC676E72880001C007156EA /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		DCF938DC288136FB006D855C /* ContactsChangeNotifierTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ContactsChangeNotifierTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		DCF938DE288136FB006D855C /* ContactsChangeNotifierTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsChangeNotifierTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -36,6 +53,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DCF938D9288136FB006D855C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FBC12872363B7832D9714C44 /* Pods_ContactsChangeNotifierTests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -43,6 +68,7 @@
 			isa = PBXGroup;
 			children = (
 				015B6DD0A0F8B23420F7F860 /* Pods_ContactsChangeNotifierDemo.framework */,
+				6B3F14A452C43A1CE3D0FB90 /* Pods_ContactsChangeNotifierTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -52,6 +78,8 @@
 			children = (
 				4E95F5D17DA305F21E07813B /* Pods-ContactsChangeNotifierDemo.debug.xcconfig */,
 				C832BAF0520B3CF98E12A9D4 /* Pods-ContactsChangeNotifierDemo.release.xcconfig */,
+				758511CED2F346FF2D97EDAC /* Pods-ContactsChangeNotifierTests.debug.xcconfig */,
+				3E5E29F603D6F987FCD6B29C /* Pods-ContactsChangeNotifierTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -60,6 +88,7 @@
 			isa = PBXGroup;
 			children = (
 				DCC676DF28800019007156EA /* ContactsChangeNotifierDemo */,
+				DCF938DD288136FB006D855C /* ContactsChangeNotifierTests */,
 				DCC676DE28800019007156EA /* Products */,
 				9017D2988484696C88D0113D /* Pods */,
 				21904AC1573484E32ECADAC4 /* Frameworks */,
@@ -70,6 +99,7 @@
 			isa = PBXGroup;
 			children = (
 				DCC676DD28800019007156EA /* ContactsChangeNotifierDemo.app */,
+				DCF938DC288136FB006D855C /* ContactsChangeNotifierTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -94,6 +124,14 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		DCF938DD288136FB006D855C /* ContactsChangeNotifierTests */ = {
+			isa = PBXGroup;
+			children = (
+				DCF938DE288136FB006D855C /* ContactsChangeNotifierTests.swift */,
+			);
+			path = ContactsChangeNotifierTests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -116,6 +154,26 @@
 			productReference = DCC676DD28800019007156EA /* ContactsChangeNotifierDemo.app */;
 			productType = "com.apple.product-type.application";
 		};
+		DCF938DB288136FB006D855C /* ContactsChangeNotifierTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DCF938E4288136FB006D855C /* Build configuration list for PBXNativeTarget "ContactsChangeNotifierTests" */;
+			buildPhases = (
+				8507292E799FE9ABE8CFEC51 /* [CP] Check Pods Manifest.lock */,
+				DCF938D8288136FB006D855C /* Sources */,
+				DCF938D9288136FB006D855C /* Frameworks */,
+				DCF938DA288136FB006D855C /* Resources */,
+				9DDCC9F3C56E7DE6150045FB /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DCF938E1288136FB006D855C /* PBXTargetDependency */,
+			);
+			name = ContactsChangeNotifierTests;
+			productName = ContactsChangeNotifierTests;
+			productReference = DCF938DC288136FB006D855C /* ContactsChangeNotifierTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -123,11 +181,15 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1400;
+				LastSwiftUpdateCheck = 1340;
 				LastUpgradeCheck = 1400;
 				TargetAttributes = {
 					DCC676DC28800019007156EA = {
 						CreatedOnToolsVersion = 14.0;
+					};
+					DCF938DB288136FB006D855C = {
+						CreatedOnToolsVersion = 13.4;
+						TestTargetID = DCC676DC28800019007156EA;
 					};
 				};
 			};
@@ -145,6 +207,7 @@
 			projectRoot = "";
 			targets = (
 				DCC676DC28800019007156EA /* ContactsChangeNotifierDemo */,
+				DCF938DB288136FB006D855C /* ContactsChangeNotifierTests */,
 			);
 		};
 /* End PBXProject section */
@@ -159,9 +222,38 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DCF938DA288136FB006D855C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		8507292E799FE9ABE8CFEC51 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ContactsChangeNotifierTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 		93ABF910618E93A5F5351809 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -182,6 +274,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9DDCC9F3C56E7DE6150045FB /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ContactsChangeNotifierTests/Pods-ContactsChangeNotifierTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ContactsChangeNotifierTests/Pods-ContactsChangeNotifierTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ContactsChangeNotifierTests/Pods-ContactsChangeNotifierTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		D640452F080E86AB934F2E71 /* [CP] Embed Pods Frameworks */ = {
@@ -214,7 +323,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DCF938D8288136FB006D855C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DCF938DF288136FB006D855C /* ContactsChangeNotifierTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		DCF938E1288136FB006D855C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DCC676DC28800019007156EA /* ContactsChangeNotifierDemo */;
+			targetProxy = DCF938E0288136FB006D855C /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		DCC676E92880001C007156EA /* Debug */ = {
@@ -393,6 +518,48 @@
 			};
 			name = Release;
 		};
+		DCF938E2288136FB006D855C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 758511CED2F346FF2D97EDAC /* Pods-ContactsChangeNotifierTests.debug.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = UT7SLSWEUX;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = io.yonat.ContactsChangeNotifierTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ContactsChangeNotifierDemo.app/ContactsChangeNotifierDemo";
+			};
+			name = Debug;
+		};
+		DCF938E3288136FB006D855C /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3E5E29F603D6F987FCD6B29C /* Pods-ContactsChangeNotifierTests.release.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = UT7SLSWEUX;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = io.yonat.ContactsChangeNotifierTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ContactsChangeNotifierDemo.app/ContactsChangeNotifierDemo";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -410,6 +577,15 @@
 			buildConfigurations = (
 				DCC676EC2880001C007156EA /* Debug */,
 				DCC676ED2880001C007156EA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DCF938E4288136FB006D855C /* Build configuration list for PBXNativeTarget "ContactsChangeNotifierTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DCF938E2288136FB006D855C /* Debug */,
+				DCF938E3288136FB006D855C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
