@@ -105,7 +105,6 @@ open class ContactsChangeNotifier: NSObject {
         var error: NSError?
         let fetchResult = store.swiftEnumerator(for: fetchRequest, error: &error)
         if let error = error { throw error }
-        lastHistoryToken = fetchResult.currentHistoryToken
         return fetchResult.value
     }
 
@@ -148,6 +147,7 @@ open class ContactsChangeNotifier: NSObject {
         // if there are new external changes, post them in a didChangeNotification
         do {
             let changes = try changeHistory()
+            lastHistoryToken = store.currentHistoryToken
             let changeHistoryEvents = changes.compactMap { $0 as? CNChangeHistoryEvent }
             guard !changeHistoryEvents.isEmpty else { return }
             NotificationCenter.default.post(

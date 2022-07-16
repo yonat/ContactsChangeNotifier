@@ -23,14 +23,8 @@ class ContactsChangeNotifierTests: XCTestCase {
         try await contactStore.requestAccess(for: .contacts)
         let notifier = try ContactsChangeNotifier(store: contactStore)
 
-        let changeExpectation = expectation(description: "change-notification")
-        _ = NotificationCenter.default.addObserver(
-            forName: .CNContactStoreDidChange,
-            object: nil,
-            queue: .main
-        ) { _ in
-            changeExpectation.fulfill()
-        }
+        let changeExpectation = expectation(forNotification: .CNContactStoreDidChange, object: nil)
+        changeExpectation.assertForOverFulfill = false
 
         let newContact = CNMutableContact()
         newContact.givenName = "New"
@@ -45,6 +39,10 @@ class ContactsChangeNotifierTests: XCTestCase {
 
         let changes = try notifier.changeHistory()
         XCTAssertEqual(changes.allObjects.count, 0, "internal change saved, and skipped by notifier")
+
+        let cleanupRequest = CNSaveRequest()
+        cleanupRequest.delete(newContact)
+        try contactStore.execute(cleanupRequest)
     }
 }
 
