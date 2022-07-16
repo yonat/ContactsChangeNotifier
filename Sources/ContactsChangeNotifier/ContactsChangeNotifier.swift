@@ -144,22 +144,34 @@ open class ContactsChangeNotifier: NSObject {
             return
         }
 
-        // if there are new external changes, post them in a didChangeNotification
+        DispatchQueue.global(qos: .background).async { [weak self] in
+            self?.forwardChangeHistoryEvents()
+        }
+    }
+
+    /// Get contacts change events and post them in a `didChangeNotification`
+    private func forwardChangeHistoryEvents() {
         do {
             let changes = try changeHistory()
             lastHistoryToken = store.currentHistoryToken
             let changeHistoryEvents = changes.compactMap { $0 as? CNChangeHistoryEvent }
             guard !changeHistoryEvents.isEmpty else { return }
-            NotificationCenter.default.post(
-                name: Self.didChangeNotification,
-                object: self,
-                userInfo: [Notification.contactsChangeEventsKey: changeHistoryEvents]
-            )
+            DispatchQueue.main.async { [weak self] in
+                self?.postNotification(changeHistoryEvents: changeHistoryEvents)
+            }
         } catch {
             #if DEBUG
             print("ContactsChangeNotifier failed to get Contacts change history:", error.localizedDescription)
             #endif
         }
+    }
+
+    private func postNotification(changeHistoryEvents: [CNChangeHistoryEvent]) {
+        NotificationCenter.default.post(
+            name: Self.didChangeNotification,
+            object: self,
+            userInfo: [Notification.contactsChangeEventsKey: changeHistoryEvents]
+        )
     }
 }
 
