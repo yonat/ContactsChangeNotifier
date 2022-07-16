@@ -30,24 +30,25 @@ It’s the API that time forgot. 🧟‍♂️
 ## Usage
 
 1. Get the user's Contacts access permission (see [docs](https://developer.apple.com/documentation/contacts/requesting_authorization_to_access_contacts)).
-2. Keep a `ContactsChangeNotifier` instance.
+2. Keep a `ContactsChangeNotifier` instance -
+   it will observe all Contacts changes but post only those that from outside your app.   
 3. Observe `ContactsChangeNotifier.didChangeNotification` notification.
 4. See change events in the notification's `contactsChangeEvents`.
 
 ```swift
-// 2. Keep a ContactsChangeNotifier instance.
+// 2. Keep a ContactsChangeNotifier instance
 let contactsChangeNotifier = try! ContactsChangeNotifier(
     store: myCNContactStore,
     fetchRequest: .fetchRequest(additionalContactKeyDescriptors: myCNKeyDescriptors)
 )
 
-// 3. Observe ContactsChangeNotifier.didChangeNotification notification.
+// 3. Observe ContactsChangeNotifier.didChangeNotification notification
 let observation = NotificationCenter.default.addObserver(
     forName: ContactsChangeNotifier.didChangeNotification,
     object: nil,
     queue: nil
 ) { notification in
-    // 4. See change events in the notification's `contactsChangeEvents`.
+    // 4. See change events in the notification's contactsChangeEvents
     for event in notification.contactsChangeEvents ?? [] {
         switch event {
         case let addEvent as CNChangeHistoryAddContactEvent:
@@ -57,6 +58,7 @@ let observation = NotificationCenter.default.addObserver(
         case let deleteEvent as CNChangeHistoryDeleteContactEvent:
             print(deleteEvent.contactIdentifier)
         default:
+            // group event
             break
         }
     }
