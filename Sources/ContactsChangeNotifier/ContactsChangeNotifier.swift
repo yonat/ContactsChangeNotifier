@@ -128,7 +128,7 @@ open class ContactsChangeNotifier: NSObject {
             forName: .CNContactStoreDidChange,
             object: nil,
             queue: .main,
-            using: self.contactsStoreChanged
+            using: { [weak self] notification in self?.contactsStoreChanged(notification: notification) }
         )
     }
 
