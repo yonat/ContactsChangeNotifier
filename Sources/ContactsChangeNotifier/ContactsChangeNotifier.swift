@@ -137,7 +137,7 @@ open class ContactsChangeNotifier: NSObject {
         //   .background => called from background refresh => external change
         //   .inactive => called when app opened => external change
         //   .active => regular app execution => internal change
-        guard UIApplication.shared.applicationState != .active,
+        guard let state = UIApplication.safeShared?.applicationState, state != .active,
               notification.contactsStoreChangeExternal
         else {
             lastHistoryToken = store.currentHistoryToken
@@ -191,5 +191,20 @@ private extension Notification {
     var contactsStoreChangeIdentifiers: [String] {
         (userInfo?["CNNotificationSaveIdentifiersKey"] as? NSArray ?? [])
             .compactMap { $0 as? String }
+    }
+}
+
+// From https://stackoverflow.com/a/69153780/1176162
+extension UIApplication {
+    static var safeShared: UIApplication? {
+        guard UIApplication.responds(to: Selector(("sharedApplication"))) else {
+            return nil
+        }
+
+        guard let unmanagedSharedApplication = UIApplication.perform(Selector(("sharedApplication"))) else {
+            return nil
+        }
+
+        return unmanagedSharedApplication.takeRetainedValue() as? UIApplication
     }
 }
