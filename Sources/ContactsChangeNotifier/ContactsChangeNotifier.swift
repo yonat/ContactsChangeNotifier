@@ -205,6 +205,6 @@ extension UIApplication {
             return nil
         }
 
-        return unmanagedSharedApplication.takeRetainedValue() as? UIApplication
+        return unmanagedSharedApplication.takeUnretainedValue() as? UIApplication
     }
 }
