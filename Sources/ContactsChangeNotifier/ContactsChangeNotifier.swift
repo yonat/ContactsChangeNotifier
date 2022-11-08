@@ -122,6 +122,10 @@ open class ContactsChangeNotifier: NSObject {
         // don't get changes that occurred before app was ever run
         if nil == lastHistoryToken {
             lastHistoryToken = store.currentHistoryToken
+        } else { // get changes since the last update
+            DispatchQueue.global(qos: .background).async { [weak self] in
+                self?.forwardChangeHistoryEvents()
+            }
         }
 
         observation = NotificationCenter.default.addObserver(

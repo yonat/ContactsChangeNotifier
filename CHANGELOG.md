@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Fixed
 - fix crash after second app open (1.0.2 regression).
+- get changes on app/notifier start (e.g. if app was force-quit).
 
 ## [1.0.2] - 2022-09-29
 
