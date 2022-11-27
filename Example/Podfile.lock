@@ -1,16 +1,37 @@
 PODS:
-  - ContactsChangeNotifier (1.0.0)
+  - ContactsChangeNotifier (1.0.3)
+  - SwiftFormat/CLI (0.50.4)
+  - SwiftLint (0.50.1)
+  - SwiftQuality (2.0.0):
+    - SwiftFormat/CLI (= 0.50.4)
+    - SwiftLint (= 0.50.1)
 
 DEPENDENCIES:
   - ContactsChangeNotifier (from `..`)
+  - SwiftQuality (from `https://github.com/yonat/SwiftQuality`)
+
+SPEC REPOS:
+  trunk:
+    - SwiftFormat
+    - SwiftLint
 
 EXTERNAL SOURCES:
   ContactsChangeNotifier:
     :path: ".."
+  SwiftQuality:
+    :git: https://github.com/yonat/SwiftQuality
+
+CHECKOUT OPTIONS:
+  SwiftQuality:
+    :commit: a5d464f7de98c03ecbbf0c60c4124faeac67633e
+    :git: https://github.com/yonat/SwiftQuality
 
 SPEC CHECKSUMS:
-  ContactsChangeNotifier: 6d964a0c0d7fd6e3ab1cbebe6b377992ab9c90f8
+  ContactsChangeNotifier: 289413cae08e40b20f227cb7717fcb4ac5a0c08a
+  SwiftFormat: 42b2e7e390bffa30ea7a9f2dd8c8872d37f6a093
+  SwiftLint: 6b0cf1f4d619808dbc16e4fab064ce6fc79f090b
+  SwiftQuality: 890e271defff439147373b686a9261dbc1f0c7f6
 
-PODFILE CHECKSUM: 137520c6173d59ec9aaf40a28cdf3aa29e99d234
+PODFILE CHECKSUM: f4efed2aaa79644849ad0cdfebcf4d7a80d946a2
 
 COCOAPODS: 1.11.3

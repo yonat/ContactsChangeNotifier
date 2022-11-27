@@ -5,9 +5,9 @@
 //  Created by Yonat Sharon on 15/07/2022.
 //
 
-import XCTest
 import Contacts
 import ContactsChangeNotifier
+import XCTest
 
 class ContactsChangeNotifierTests: XCTestCase {
     let contactStore = CNContactStore()

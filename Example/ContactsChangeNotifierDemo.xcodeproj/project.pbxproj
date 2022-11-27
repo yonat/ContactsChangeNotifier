@@ -140,10 +140,13 @@
 			buildConfigurationList = DCC676EB2880001C007156EA /* Build configuration list for PBXNativeTarget "ContactsChangeNotifierDemo" */;
 			buildPhases = (
 				93ABF910618E93A5F5351809 /* [CP] Check Pods Manifest.lock */,
+				C5EC6C9FAA7F27D913B3D44E /* [CP-User] SwiftFormat */,
+				33D012AFD24C971C4DD3511C /* [CP-User] SwiftLintAutocorrect */,
 				DCC676D928800019007156EA /* Sources */,
 				DCC676DA28800019007156EA /* Frameworks */,
 				DCC676DB28800019007156EA /* Resources */,
 				D640452F080E86AB934F2E71 /* [CP] Embed Pods Frameworks */,
+				D6D8FC803B30933F54E11662 /* [CP-User] SwiftLint */,
 			);
 			buildRules = (
 			);
@@ -232,6 +235,17 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		33D012AFD24C971C4DD3511C /* [CP-User] SwiftLintAutocorrect */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			name = "[CP-User] SwiftLintAutocorrect";
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [[ \"Debug\" == \"${CONFIGURATION}\" && ! $ENABLE_PREVIEWS == \"YES\" ]]; then \"${PODS_ROOT}/SwiftLint/swiftlint\" --fix --config \"${PODS_ROOT}/SwiftQuality/.swiftlint.yml\" \"${SRCROOT}/..\" ; fi";
+		};
 		8507292E799FE9ABE8CFEC51 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -278,6 +292,7 @@
 		};
 		9DDCC9F3C56E7DE6150045FB /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
@@ -293,8 +308,20 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ContactsChangeNotifierTests/Pods-ContactsChangeNotifierTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		C5EC6C9FAA7F27D913B3D44E /* [CP-User] SwiftFormat */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			name = "[CP-User] SwiftFormat";
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [[ \"Debug\" == \"${CONFIGURATION}\" && ! $ENABLE_PREVIEWS == \"YES\" ]]; then \"${PODS_ROOT}/SwiftFormat/CommandLineTool/swiftformat\" --swiftversion ${SWIFT_VERSION} --config \"${PODS_ROOT}/SwiftQuality/.swiftformat\" \"${SRCROOT}/..\" ; fi";
+		};
 		D640452F080E86AB934F2E71 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
@@ -309,6 +336,17 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ContactsChangeNotifierDemo/Pods-ContactsChangeNotifierDemo-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		D6D8FC803B30933F54E11662 /* [CP-User] SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			name = "[CP-User] SwiftLint";
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ \"Debug\" == \"${CONFIGURATION}\" && ! $ENABLE_PREVIEWS == \"YES\" ]; then \"${PODS_ROOT}/SwiftLint/swiftlint\" --config \"${PODS_ROOT}/SwiftQuality/.swiftlint.yml\" \"${SRCROOT}/..\" ; fi";
 		};
 /* End PBXShellScriptBuildPhase section */
 
