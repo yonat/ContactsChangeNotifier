@@ -9,6 +9,10 @@
 
 @implementation CNContactStore (ChangeHistory)
 
+- (NSData *)lastHistoryToken {
+    return self.currentHistoryToken;
+}
+
 - (CNFetchResult<NSEnumerator<CNChangeHistoryEvent *> *> *)swiftEnumeratorForChangeHistoryFetchRequest:(CNChangeHistoryFetchRequest *)request
                                                                                                  error:(NSError * _Nullable *)error
 {

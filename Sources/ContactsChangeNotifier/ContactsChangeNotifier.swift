@@ -76,6 +76,11 @@ open class ContactsChangeNotifier: NSObject {
         get { UserDefaults.standard.data(forKey: lastHistoryTokenUserDefaultsKey) }
         set { UserDefaults.standard.set(newValue, forKey: lastHistoryTokenUserDefaultsKey) }
     }
+    
+    /// Use to access to `currentHistoryToken`.
+    public var safeLastHistoryToken: Data? {
+        return store.lastHistoryToken
+    }
 
     /// Create a notifier of *external* changes in Contacts (i.e., changes made outside the app). **Note**: Requires user contacts authorization.
     /// - Parameters:
@@ -121,7 +126,7 @@ open class ContactsChangeNotifier: NSObject {
 
         // don't get changes that occurred before app was ever run
         if nil == lastHistoryToken {
-            lastHistoryToken = store.currentHistoryToken
+            lastHistoryToken = safeLastHistoryToken
         } else { // get changes since the last update
             DispatchQueue.global(qos: .background).async { [weak self] in
                 self?.forwardChangeHistoryEvents()
@@ -144,7 +149,7 @@ open class ContactsChangeNotifier: NSObject {
         guard let state = UIApplication.safeShared?.applicationState, state != .active,
               notification.contactsStoreChangeExternal
         else {
-            lastHistoryToken = store.currentHistoryToken
+            lastHistoryToken = safeLastHistoryToken
             return
         }
 
@@ -157,7 +162,7 @@ open class ContactsChangeNotifier: NSObject {
     private func forwardChangeHistoryEvents() {
         do {
             let changes = try changeHistory()
-            lastHistoryToken = store.currentHistoryToken
+            lastHistoryToken = safeLastHistoryToken
             let changeHistoryEvents = changes.compactMap { $0 as? CNChangeHistoryEvent }
             guard !changeHistoryEvents.isEmpty else { return }
             DispatchQueue.main.async { [weak self] in
