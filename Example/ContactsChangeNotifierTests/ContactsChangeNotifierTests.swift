@@ -21,7 +21,10 @@ class ContactsChangeNotifierTests: XCTestCase {
             XCTFail("Got changes when they were internal: \(notification.contactsChangeEvents ?? [])")
         }
         try await contactStore.requestAccess(for: .contacts)
-        let notifier = try ContactsChangeNotifier(store: contactStore)
+        let notifier = try ContactsChangeNotifier(store: contactStore, fetchRequest: .fetchRequest(additionalContactKeyDescriptors: [
+            CNContactIdentifierKey as CNKeyDescriptor,
+            CNContactFormatter.descriptorForRequiredKeys(for: .fullName),
+        ]))
 
         let changeExpectation = expectation(forNotification: .CNContactStoreDidChange, object: nil)
         changeExpectation.assertForOverFulfill = false
