@@ -16,7 +16,8 @@ let package = Package(
         ),
         .target(
             name: "ContactsChangeNotifier",
-            dependencies: ["ContactStoreChangeHistory"]
+            dependencies: ["ContactStoreChangeHistory"],
+            resources: [.copy("PrivacyInfo.xcprivacy")]
         ),
     ],
     swiftLanguageVersions: [.v5]
