@@ -72,7 +72,7 @@ open class ContactsChangeNotifier: NSObject {
 
     /// Used as `startingToken` when fetching Contacts change history.
     /// Updated after every fetch, to avoid getting the same changes over and over again.
-    public var lastHistoryToken: Data? {
+    open var lastHistoryToken: Data? {
         get { UserDefaults.standard.data(forKey: lastHistoryTokenUserDefaultsKey) }
         set { UserDefaults.standard.set(newValue, forKey: lastHistoryTokenUserDefaultsKey) }
     }
