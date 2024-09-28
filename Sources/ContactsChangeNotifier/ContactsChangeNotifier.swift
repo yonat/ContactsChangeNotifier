@@ -76,8 +76,7 @@ open class ContactsChangeNotifier: NSObject {
     }
   
     /// The location where `lastHistoryToken` is stored.
-    /// `UserDefaults.standard` is used by default.
-    public var historyTokenStorage: HistoryTokenStorageType = .userDefaults()
+    public var historyTokenStorage: HistoryTokenStorageType
 
     /// Used as `startingToken` when fetching Contacts change history.
     /// Updated after every fetch, to avoid getting the same changes over and over again.
@@ -102,11 +101,17 @@ open class ContactsChangeNotifier: NSObject {
     /// Create a notifier of *external* changes in Contacts (i.e., changes made outside the app). **Note**: Requires user contacts authorization.
     /// - Parameters:
     ///   - store: The contacts store to use
+    ///   - historyTokenStorage: The location where `lastHistoryToken` is stored
     ///   - fetchRequest: Optional spec of which changes to observe.
     ///
     ///     `fetchRequest.startingToken` is ignored, `lastHistoryToken` will be used instead.
-    public init(store: CNContactStore, fetchRequest: CNChangeHistoryFetchRequest = .fetchRequest()) throws {
+    public init(
+      store: CNContactStore,
+      historyTokenStorage: HistoryTokenStorageType = .userDefaults(),
+      fetchRequest: CNChangeHistoryFetchRequest = .fetchRequest()
+    ) throws {
         self.store = store
+        self.historyTokenStorage = historyTokenStorage
         self.fetchRequest = fetchRequest
         super.init()
         Task {
