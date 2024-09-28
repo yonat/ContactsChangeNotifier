@@ -69,12 +69,34 @@ open class ContactsChangeNotifier: NSObject {
     ///
     /// Use `.fetchRequest()` for sensible defaults.
     public var fetchRequest: CNChangeHistoryFetchRequest
+    
+    public enum HistoryTokenStorageType: Hashable {
+      case userDefaults(suiteName: String? = nil)
+      case iCloudKeyValueStore
+    }
+  
+    /// The location where `lastHistoryToken` is stored.
+    /// `UserDefaults.standard` is used by default.
+    public var historyTokenStorage: HistoryTokenStorageType = .userDefaults()
 
     /// Used as `startingToken` when fetching Contacts change history.
     /// Updated after every fetch, to avoid getting the same changes over and over again.
     open var lastHistoryToken: Data? {
-        get { UserDefaults.standard.data(forKey: lastHistoryTokenUserDefaultsKey) }
-        set { UserDefaults.standard.set(newValue, forKey: lastHistoryTokenUserDefaultsKey) }
+      get {
+        switch historyTokenStorage {
+        case .userDefaults(let suiteName):
+          UserDefaults(suiteName: suiteName)?.data(forKey: lastHistoryTokenUserDefaultsKey)
+        case .iCloudKeyValueStore:
+          NSUbiquitousKeyValueStore.default.data(forKey: lastHistoryTokenUserDefaultsKey)
+        }
+      }
+      set {
+        switch historyTokenStorage {
+        case .userDefaults(let suiteName):
+          UserDefaults(suiteName: suiteName)?.set(newValue, forKey: lastHistoryTokenUserDefaultsKey)
+        case .iCloudKeyValueStore:
+          NSUbiquitousKeyValueStore.default.set(newValue, forKey: lastHistoryTokenUserDefaultsKey) }
+      }
     }
 
     /// Create a notifier of *external* changes in Contacts (i.e., changes made outside the app). **Note**: Requires user contacts authorization.
@@ -123,7 +145,7 @@ open class ContactsChangeNotifier: NSObject {
         if nil == lastHistoryToken {
             lastHistoryToken = store.currentHistoryToken
         } else { // get changes since the last update
-            DispatchQueue.global(qos: .background).async { [weak self] in
+            Task.detached(priority: .background) { [weak self] in
                 self?.forwardChangeHistoryEvents()
             }
         }
@@ -148,7 +170,7 @@ open class ContactsChangeNotifier: NSObject {
             return
         }
 
-        DispatchQueue.global(qos: .background).async { [weak self] in
+        Task.detached(priority: .background) { [weak self] in
             self?.forwardChangeHistoryEvents()
         }
     }
@@ -160,7 +182,7 @@ open class ContactsChangeNotifier: NSObject {
             lastHistoryToken = store.currentHistoryToken
             let changeHistoryEvents = changes.compactMap { $0 as? CNChangeHistoryEvent }
             guard !changeHistoryEvents.isEmpty else { return }
-            DispatchQueue.main.async { [weak self] in
+            Task { @MainActor [weak self] in
                 self?.postNotification(changeHistoryEvents: changeHistoryEvents)
             }
         } catch {
