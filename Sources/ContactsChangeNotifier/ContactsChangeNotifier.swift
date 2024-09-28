@@ -99,6 +99,10 @@ open class ContactsChangeNotifier: NSObject {
     }
 
     /// Create a notifier of *external* changes in Contacts (i.e., changes made outside the app). **Note**: Requires user contacts authorization.
+    ///
+    /// > Warning: To use `iCloudKeyValueStore` as the `lastHistoryToken` storage type,
+    /// > add "iCloud" to "Signing & Capabilities" and enable "Key-value storage".
+    ///
     /// - Parameters:
     ///   - store: The contacts store to use
     ///   - historyTokenStorage: The location where `lastHistoryToken` is stored
