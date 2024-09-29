@@ -1,4 +1,4 @@
-// swift-tools-version:5.6
+// swift-tools-version: 6.0
 
 import PackageDescription
 
@@ -17,8 +17,8 @@ let package = Package(
         .target(
             name: "ContactsChangeNotifier",
             dependencies: ["ContactStoreChangeHistory"],
-            resources: [.copy("PrivacyInfo.xcprivacy")]
+            resources: [.process("PrivacyInfo.xcprivacy")]
         ),
     ],
-    swiftLanguageVersions: [.version("6")]
+    swiftLanguageModes: [.v5, .v6]
 )
