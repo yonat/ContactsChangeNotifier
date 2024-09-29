@@ -26,11 +26,13 @@ public extension CNChangeHistoryFetchRequest {
     /// Pass parameters to override defaults.
     static func fetchRequest(
         shouldUnifyResults: Bool = true,
+        includeGroupChanges: Bool = true,
         excludedTransactionAuthors: [String]? = Bundle.main.bundleIdentifier.flatMap { [$0] },
         additionalContactKeyDescriptors: [CNKeyDescriptor] = []
     ) -> CNChangeHistoryFetchRequest {
         let request = CNChangeHistoryFetchRequest()
         request.shouldUnifyResults = shouldUnifyResults
+        request.includeGroupChanges = includeGroupChanges
         request.excludedTransactionAuthors = excludedTransactionAuthors
         request.additionalContactKeyDescriptors = additionalContactKeyDescriptors
         return request
