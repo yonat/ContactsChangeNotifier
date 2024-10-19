@@ -8,7 +8,7 @@
 import Foundation
 
 /// A concrete implementation of `HistoryTokenStorage` that uses CloudKit (NSUbiquitousKeyValueStore) for storing history tokens.
-public final class CloudKitHistoryTokenStorage: HistoryTokenStorage {
+public struct CloudKitHistoryTokenStorage: HistoryTokenStorage {
     public func getHistoryToken() -> Data? {
         NSUbiquitousKeyValueStore.default.data(forKey: lastHistoryTokenUserDefaultsKey)
     }

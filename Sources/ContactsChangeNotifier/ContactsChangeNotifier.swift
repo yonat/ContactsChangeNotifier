@@ -57,7 +57,7 @@ public extension CNChangeHistoryFetchRequest {
 ///     )
 /// }
 /// ```
-final class ContactsChangeNotifier: NSObject, Sendable {
+public final class ContactsChangeNotifier: NSObject, Sendable {
     /// Posted when *external* changes occur in Contacts (i.e., changes made outside the app). Includes `contactsChangeEvents` with all changes.
     ///
     /// Replaces `CNContactStoreDidChange` which is called both for internal changes and for phantom echoes of changes.
@@ -95,7 +95,7 @@ final class ContactsChangeNotifier: NSObject, Sendable {
     ///     `fetchRequest.startingToken` is ignored, `lastHistoryToken` will be used instead.
     public init(
         store: CNContactStore,
-        historyTokenStorage: any HistoryTokenStorage = UserDefaultsHistoryTokenStorage(),
+        historyTokenStorage: HistoryTokenStorage = .userDefaults,
         fetchRequest: CNChangeHistoryFetchRequest = .fetchRequest()
     ) throws {
         self.store = store

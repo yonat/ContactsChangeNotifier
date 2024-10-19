@@ -24,3 +24,22 @@ public protocol HistoryTokenStorage: Sendable {
     /// - Parameter token: The `Data` object to store as the history token. Pass `nil` to remove the token.
     func setHistoryToken(_ token: Data?)
 }
+
+/// Extension to provide convenient static accessors for UserDefaultsHistoryTokenStorage
+public extension HistoryTokenStorage where Self == UserDefaultsHistoryTokenStorage {
+    /// Creates a UserDefaultsHistoryTokenStorage instance using the standard UserDefaults.
+    static var userDefaults: UserDefaultsHistoryTokenStorage { UserDefaultsHistoryTokenStorage() }
+
+    /// Creates a UserDefaultsHistoryTokenStorage instance with a specific suite name.
+    /// - Parameter suiteName: The name of the UserDefaults suite to use.
+    /// - Returns: A UserDefaultsHistoryTokenStorage instance configured with the specified suite name.
+    static func userDefaults(suiteName: String) -> UserDefaultsHistoryTokenStorage {
+        UserDefaultsHistoryTokenStorage(suiteName: suiteName)
+    }
+}
+
+/// Extension to provide a convenient static accessor for CloudKitHistoryTokenStorage
+public extension HistoryTokenStorage where Self == CloudKitHistoryTokenStorage {
+    /// Creates a CloudKitHistoryTokenStorage instance using the default iCloud key-value store.
+    static var iCloudKeyValueStore: CloudKitHistoryTokenStorage { CloudKitHistoryTokenStorage() }
+}
