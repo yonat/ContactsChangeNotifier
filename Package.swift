@@ -1,4 +1,4 @@
-// swift-tools-version: 6.0
+// swift-tools-version: 5.6
 
 import PackageDescription
 
@@ -20,5 +20,5 @@ let package = Package(
             resources: [.process("PrivacyInfo.xcprivacy")]
         ),
     ],
-    swiftLanguageModes: [.v5, .v6]
+    swiftLanguageVersions: [.v5]
 )
