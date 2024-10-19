@@ -1,5 +1,5 @@
 PODS:
-  - ContactsChangeNotifier (1.0.4)
+  - ContactsChangeNotifier (1.1.0)
   - SwiftFormat/CLI (0.50.7)
   - SwiftLint (0.50.3)
   - SwiftQuality (2.0.1):
@@ -27,11 +27,11 @@ CHECKOUT OPTIONS:
     :git: https://github.com/yonat/SwiftQuality
 
 SPEC CHECKSUMS:
-  ContactsChangeNotifier: 3db5c616635108b85a9d51c44fe01a16f2b901fe
+  ContactsChangeNotifier: 4aa69732e6f2dca5c618322fe230c4897ed91af1
   SwiftFormat: 4fcf72ee44c7198255108c22ed7135c38a36ba6b
   SwiftLint: 77f7cb2b9bb81ab4a12fcc86448ba3f11afa50c6
   SwiftQuality: 8d69820e0f82a25563c3cb33d31b0a11f124ea0c
 
 PODFILE CHECKSUM: c12a9fb7228bf37381eecd4153080533145bdc32
 
-COCOAPODS: 1.12.1
+COCOAPODS: 1.15.2
