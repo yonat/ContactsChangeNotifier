@@ -89,7 +89,7 @@ public final class ContactsChangeNotifier: NSObject, Sendable {
     ///
     /// - Parameters:
     ///   - store: The contacts store to use
-    ///   - historyTokenStorage: The location where `lastHistoryToken` is stored
+    ///   - historyTokenStorage: Where `lastHistoryToken` is stored:  `.userDefaults(suiteName:)` or `.iCloudKeyValueStore` or your own storage implementation.
     ///   - fetchRequest: Optional spec of which changes to observe.
     ///
     ///     `fetchRequest.startingToken` is ignored, `lastHistoryToken` will be used instead.
@@ -134,7 +134,7 @@ public final class ContactsChangeNotifier: NSObject, Sendable {
         _ = store.defaultContainerIdentifier()
 
         // don't get changes that occurred before app was ever run
-        if lastHistoryToken == nil {
+        if nil == lastHistoryToken {
             lastHistoryToken = store.currentHistoryToken
         } else { // get changes since the last update
             Task.detached(priority: .background) { [weak self] in
@@ -205,7 +205,7 @@ public final class ContactsChangeNotifier: NSObject, Sendable {
 private extension Notification {
     /// (Undocumented) Did the change originate outside the app
     var isContactsStoreChangeExternal: Bool {
-        userInfo?["CNNotificationOriginationExternally"] != nil
+        nil != userInfo?["CNNotificationOriginationExternally"]
     }
 
     /// (Undocumented) Empty for external-to-app changes, some `CNDataMapperContactStore` for internal changes.

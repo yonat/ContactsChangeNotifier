@@ -27,3 +27,15 @@ public struct UserDefaultsHistoryTokenStorage: HistoryTokenStorage {
         UserDefaults(suiteName: suiteName)?.set(token, forKey: lastHistoryTokenUserDefaultsKey)
     }
 }
+
+public extension HistoryTokenStorage where Self == UserDefaultsHistoryTokenStorage {
+    /// Creates a UserDefaultsHistoryTokenStorage instance using the standard UserDefaults.
+    static var userDefaults: UserDefaultsHistoryTokenStorage { UserDefaultsHistoryTokenStorage() }
+
+    /// Creates a UserDefaultsHistoryTokenStorage instance with a specific suite name.
+    /// - Parameter suiteName: The name of the UserDefaults suite to use.
+    /// - Returns: A UserDefaultsHistoryTokenStorage instance configured with the specified suite name.
+    static func userDefaults(suiteName: String) -> UserDefaultsHistoryTokenStorage {
+        UserDefaultsHistoryTokenStorage(suiteName: suiteName)
+    }
+}

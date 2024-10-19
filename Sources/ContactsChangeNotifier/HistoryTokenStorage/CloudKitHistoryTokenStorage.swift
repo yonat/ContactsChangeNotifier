@@ -17,3 +17,8 @@ public struct CloudKitHistoryTokenStorage: HistoryTokenStorage {
         NSUbiquitousKeyValueStore.default.set(token, forKey: lastHistoryTokenUserDefaultsKey)
     }
 }
+
+public extension HistoryTokenStorage where Self == CloudKitHistoryTokenStorage {
+    /// Creates a CloudKitHistoryTokenStorage instance using the default iCloud key-value store.
+    static var iCloudKeyValueStore: CloudKitHistoryTokenStorage { CloudKitHistoryTokenStorage() }
+}
