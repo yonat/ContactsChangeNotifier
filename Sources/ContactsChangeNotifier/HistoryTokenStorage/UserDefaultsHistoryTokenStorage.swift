@@ -8,7 +8,7 @@
 import Foundation
 
 /// A concrete implementation of `HistoryTokenStorage` that uses UserDefaults for storing history tokens.
-public struct UserDefaultsHistoryTokenStorage: HistoryTokenStorage {
+public final class UserDefaultsHistoryTokenStorage: HistoryTokenStorage {
     /// The name of the UserDefaults suite to use.
     private let suiteName: String?
 
@@ -19,12 +19,13 @@ public struct UserDefaultsHistoryTokenStorage: HistoryTokenStorage {
         self.suiteName = suiteName
     }
 
-    public func getHistoryToken() -> Data? {
-        UserDefaults(suiteName: suiteName)?.data(forKey: lastHistoryTokenUserDefaultsKey)
-    }
-
-    public func setHistoryToken(_ token: Data?) {
-        UserDefaults(suiteName: suiteName)?.set(token, forKey: lastHistoryTokenUserDefaultsKey)
+    public var tokenData: Data? {
+        get {
+            UserDefaults(suiteName: suiteName)?.data(forKey: lastHistoryTokenUserDefaultsKey)
+        }
+        set {
+            UserDefaults(suiteName: suiteName)?.set(newValue, forKey: lastHistoryTokenUserDefaultsKey)
+        }
     }
 }
 

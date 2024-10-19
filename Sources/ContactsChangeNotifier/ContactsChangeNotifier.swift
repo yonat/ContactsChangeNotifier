@@ -73,13 +73,13 @@ public final class ContactsChangeNotifier: NSObject, Sendable {
     public let fetchRequest: CNChangeHistoryFetchRequest
 
     /// The location where `lastHistoryToken` is stored.
-    public let historyTokenStorage: any HistoryTokenStorage
+    public let historyTokenStorage: HistoryTokenStorage
 
     /// Used as `startingToken` when fetching Contacts change history.
     /// Updated after every fetch, to avoid getting the same changes over and over again.
     public var lastHistoryToken: Data? {
-        get { historyTokenStorage.getHistoryToken() }
-        set { historyTokenStorage.setHistoryToken(newValue) }
+        get { historyTokenStorage.tokenData }
+        set { historyTokenStorage.tokenData = newValue }
     }
 
     /// Create a notifier of *external* changes in Contacts (i.e., changes made outside the app). **Note**: Requires user contacts authorization.
