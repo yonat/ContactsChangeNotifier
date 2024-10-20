@@ -12,7 +12,7 @@ Pod::Spec.new do |s|
   s.swift_versions = ['5.0']
 
   s.source       = { :git => 'https://github.com/yonat/ContactsChangeNotifier.git', :tag => s.version }
-  s.source_files  = 'Sources/ContactStoreChangeHistory/*.{h,m}', 'Sources/ContactsChangeNotifier/*.swift'
+  s.source_files  = 'Sources/ContactStoreChangeHistory/*.{h,m}', 'Sources/ContactsChangeNotifier/**/*.swift'
   s.resource_bundles = {s.name => ['Sources/ContactsChangeNotifier/PrivacyInfo.xcprivacy']}
 
 end

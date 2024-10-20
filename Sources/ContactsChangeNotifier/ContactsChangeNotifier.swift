@@ -4,7 +4,7 @@
 //  Created by Yonat Sharon on 10/07/2022.
 //
 
-import Contacts
+@preconcurrency import Contacts
 import UIKit
 
 #if !COCOAPODS
@@ -26,11 +26,13 @@ public extension CNChangeHistoryFetchRequest {
     /// Pass parameters to override defaults.
     static func fetchRequest(
         shouldUnifyResults: Bool = true,
+        includeGroupChanges: Bool = true,
         excludedTransactionAuthors: [String]? = Bundle.main.bundleIdentifier.flatMap { [$0] },
         additionalContactKeyDescriptors: [CNKeyDescriptor] = []
     ) -> CNChangeHistoryFetchRequest {
         let request = CNChangeHistoryFetchRequest()
         request.shouldUnifyResults = shouldUnifyResults
+        request.includeGroupChanges = includeGroupChanges
         request.excludedTransactionAuthors = excludedTransactionAuthors
         request.additionalContactKeyDescriptors = additionalContactKeyDescriptors
         return request
@@ -55,7 +57,7 @@ public extension CNChangeHistoryFetchRequest {
 ///     )
 /// }
 /// ```
-open class ContactsChangeNotifier: NSObject {
+public final class ContactsChangeNotifier: NSObject, Sendable {
     /// Posted when *external* changes occur in Contacts (i.e., changes made outside the app). Includes `contactsChangeEvents` with all changes.
     ///
     /// Replaces `CNContactStoreDidChange` which is called both for internal changes and for phantom echoes of changes.
@@ -68,34 +70,16 @@ open class ContactsChangeNotifier: NSObject {
     /// `startingToken` is ignored: `lastHistoryToken` will be automatically used.
     ///
     /// Use `.fetchRequest()` for sensible defaults.
-    public var fetchRequest: CNChangeHistoryFetchRequest
-    
-    public enum HistoryTokenStorageType: Hashable {
-      case userDefaults(suiteName: String? = nil)
-      case iCloudKeyValueStore
-    }
-  
+    public let fetchRequest: CNChangeHistoryFetchRequest
+
     /// The location where `lastHistoryToken` is stored.
-    public var historyTokenStorage: HistoryTokenStorageType
+    public let historyTokenStorage: HistoryTokenStorage
 
     /// Used as `startingToken` when fetching Contacts change history.
     /// Updated after every fetch, to avoid getting the same changes over and over again.
-    open var lastHistoryToken: Data? {
-      get {
-        switch historyTokenStorage {
-        case .userDefaults(let suiteName):
-          UserDefaults(suiteName: suiteName)?.data(forKey: lastHistoryTokenUserDefaultsKey)
-        case .iCloudKeyValueStore:
-          NSUbiquitousKeyValueStore.default.data(forKey: lastHistoryTokenUserDefaultsKey)
-        }
-      }
-      set {
-        switch historyTokenStorage {
-        case .userDefaults(let suiteName):
-          UserDefaults(suiteName: suiteName)?.set(newValue, forKey: lastHistoryTokenUserDefaultsKey)
-        case .iCloudKeyValueStore:
-          NSUbiquitousKeyValueStore.default.set(newValue, forKey: lastHistoryTokenUserDefaultsKey) }
-      }
+    public var lastHistoryToken: Data? {
+        get { historyTokenStorage.tokenData }
+        set { historyTokenStorage.tokenData = newValue }
     }
 
     /// Create a notifier of *external* changes in Contacts (i.e., changes made outside the app). **Note**: Requires user contacts authorization.
@@ -105,14 +89,14 @@ open class ContactsChangeNotifier: NSObject {
     ///
     /// - Parameters:
     ///   - store: The contacts store to use
-    ///   - historyTokenStorage: The location where `lastHistoryToken` is stored
+    ///   - historyTokenStorage: Where `lastHistoryToken` is stored:  `.userDefaults(suiteName:)` or `.iCloudKeyValueStore` or your own storage implementation.
     ///   - fetchRequest: Optional spec of which changes to observe.
     ///
     ///     `fetchRequest.startingToken` is ignored, `lastHistoryToken` will be used instead.
     public init(
-      store: CNContactStore,
-      historyTokenStorage: HistoryTokenStorageType = .userDefaults(),
-      fetchRequest: CNChangeHistoryFetchRequest = .fetchRequest()
+        store: CNContactStore,
+        historyTokenStorage: HistoryTokenStorage = .userDefaults,
+        fetchRequest: CNChangeHistoryFetchRequest = .fetchRequest()
     ) throws {
         self.store = store
         self.historyTokenStorage = historyTokenStorage
@@ -141,8 +125,7 @@ open class ContactsChangeNotifier: NSObject {
 
     // MARK: - Privates
 
-    private let lastHistoryTokenUserDefaultsKey = "ContactsChangeNotifier.lastHistoryToken"
-    private var observation: NSObjectProtocol?
+    @MainActor private var observation: NSObjectProtocol?
 
     private func setupContactStore() async throws {
         try await store.requestAccess(for: .contacts)
@@ -159,29 +142,37 @@ open class ContactsChangeNotifier: NSObject {
             }
         }
 
-        observation = NotificationCenter.default.addObserver(
-            forName: .CNContactStoreDidChange,
-            object: nil,
-            queue: .main,
-            using: { [weak self] notification in self?.contactsStoreChanged(notification: notification) }
-        )
+        await MainActor.run {
+            observation = NotificationCenter.default.addObserver(
+                forName: .CNContactStoreDidChange,
+                object: nil,
+                queue: .main
+            ) { [weak self] notification in
+                self?.contactsStoreChanged(isExternal: notification.isContactsStoreChangeExternal)
+            }
+        }
     }
 
-    @objc private func contactsStoreChanged(notification: Notification) {
+    @Sendable @objc private func contactsStoreChanged(isExternal: Bool) {
         // avoid phantom echoes of internal changes by checking `applicationState`:
         //   .background => called from background refresh => external change
         //   .inactive => called when app opened => external change
         //   .active => regular app execution => internal change
-        guard let state = UIApplication.safeShared?.applicationState, state != .active,
-              notification.contactsStoreChangeExternal
-        else {
-            lastHistoryToken = store.currentHistoryToken
-            return
-        }
+        Task { @MainActor in
+            guard isExternal, !applicateStateIsActive() else {
+                lastHistoryToken = store.currentHistoryToken
+                return
+            }
 
-        Task.detached(priority: .background) { [weak self] in
-            self?.forwardChangeHistoryEvents()
+            Task.detached(priority: .background) { [weak self] in
+                self?.forwardChangeHistoryEvents()
+            }
         }
+    }
+
+    @MainActor
+    private func applicateStateIsActive() -> Bool {
+        UIApplication.safeShared?.applicationState == .active
     }
 
     /// Get contacts change events and post them in a `didChangeNotification`
@@ -213,7 +204,7 @@ open class ContactsChangeNotifier: NSObject {
 // Applies to .CNContactStoreDidChange
 private extension Notification {
     /// (Undocumented) Did the change originate outside the app
-    var contactsStoreChangeExternal: Bool {
+    var isContactsStoreChangeExternal: Bool {
         nil != userInfo?["CNNotificationOriginationExternally"]
     }
 
