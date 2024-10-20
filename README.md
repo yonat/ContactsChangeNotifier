@@ -77,7 +77,7 @@ pod 'ContactsChangeNotifier'
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/yonat/ContactsChangeNotifier", from: "1.1.0")
+    .package(url: "https://github.com/yonat/ContactsChangeNotifier", from: "1.2.0")
 ]
 ```
 
